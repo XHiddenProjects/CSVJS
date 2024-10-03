@@ -1,6 +1,12 @@
 # CSVJS
 CSVJS Allows CSV, Comma-Separated values, in JS.
 
+### Starting up
+Use this script to get the script
+```html
+<script src="https://cdn.jsdelivr.net/gh/XHiddenProjects/CSVJS@1.0.0/csv.min.js"></script>
+```
+
 ### Creating object
 To start the object use the `csvJS()` using a custom splicer and EOF(_End of Line_)
 ```js
