@@ -1,4 +1,5 @@
-/**
+class csvJS{
+    /**
      * Creates a CSV object to configure
      * @param {String} splice [Optional] - Character to splice in row
      * @param {String} EOF [Optional] - Character to split each column
