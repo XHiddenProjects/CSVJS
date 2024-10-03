@@ -21,5 +21,30 @@ To import CSV, use the **fromFile** method
   * @param {Number|Number[]} [ignoreLines=0] Ignore lines. Use 0 to use no-ignore lines
   * @returns {Object[]} CSV Object
   */
-csv.fromFile({file_path},ignoreLines=0);
+const myCSV = csv.fromFile({file_path},ignoreLines=0);
+```
+### From String
+To use a string version of CSV to create an object us the **fromString** method
+```js
+/**
+  * Converts CSV from string to object
+  * @param {String} str CSV string
+  * @param {Number|Number[]} ignoreLines Lines to ignore
+  * @returns {Object[]} CSV object
+  */
+const myCSV = csv.fromString(str, ignoreLines=0);
+```
+
+### Ignoring lines
+Use the **_ignoreLines_** parameter of either a **Number** | **Number[]**. Numbers must be start from 1..., **0** means _no-ignore_ or _skip_
+
+### Tables
+To load up the table from an object, use the **toTable** method
+```js
+/**
+  * Creates a table off the object
+  * @param {Object} obj Object of the CSV
+  * @param {Element} elem Element to target the CSV
+  */
+csv.toTable(myCSV, {element});
 ```
