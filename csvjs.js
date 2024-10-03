@@ -25,7 +25,7 @@ class csvJS{
      * Converts CSV file to an Object
      * @param {String} file CSV File path to return as
      * @param {Number|Number[]} [ignoreLines=0] Ignore lines. Use 0 to use no-ignore lines
-     * @returns 
+     * @returns {Object} CSV Object
      */
     fromFile(file, ignoreLines=0){
         const splice = this.setSplice, eof = this.setEOF, results=[], keys=[];
@@ -63,7 +63,7 @@ class csvJS{
      * Converts CSV from string to object
      * @param {String} str CSV string
      * @param {Number|Number[]} ignoreLines Lines to ignore
-     * @returns 
+     * @returns {Object[]} CSV object
      */
     fromString(str, ignoreLines=0){
         let getCSV = str;
