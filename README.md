@@ -4,7 +4,7 @@ CSVJS Allows CSV, Comma-Separated values, in JS.
 ### Starting up
 Use this script to get the script
 ```html
-<script src="https://cdn.jsdelivr.net/gh/XHiddenProjects/CSVJS@1.0.0/csv.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/XHiddenProjects/CSVJS@1.0.1/csv.min.js"></script>
 ```
 
 ### Creating object
@@ -53,4 +53,15 @@ To load up the table from an object, use the **toTable** method
   * @param {Element} elem Element to target the CSV
   */
 csv.toTable(myCSV, {element});
+```
+
+### Coverting Objects to CSV
+To convert objects to CSV, use the **toCSV()** method
+```js
+/**
+  * Converts Object to CSV
+  * @param {Object} obj Object to convert
+  * @returns {String} CSV String
+  */
+    csv.toCSV(myCSV);
 ```
