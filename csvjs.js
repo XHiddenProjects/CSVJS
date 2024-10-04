@@ -123,4 +123,21 @@ class csvJS{
         tableElem.appendChild(tableBody);
         document.querySelector(elem).appendChild(tableElem);
     }
+    /**
+     * Converts Object to CSV
+     * @param {Object} obj Object to convert
+     * @returns {String} CSV String
+     */
+    toCSV(obj){
+        let str = '',
+        keys = Object.keys(obj[0]);
+        str+=keys.join(this.setSplice)+this.setEOF;
+        obj.forEach((e)=>{
+            const values = Object.values(e);
+            str+=values.join(this.setSplice).trim()+this.setEOF;
+        });
+        str = str.replace(new RegExp(this.setEOF+'$'),'');
+
+        return str;
+    }
 }
