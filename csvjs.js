@@ -7,7 +7,7 @@ class csvJS{
     /**
      * Creates a CSV object to configure
      * @param {String} splice [Optional] - Character to splice in row
-     * @param {String} EOF [Optional] - Character to split each column
+     * @param {String} EOF [Optional] - Character to split each columnlts
      */
     constructor(splice=',', EOF='\n'){
         this.COMMA = ',';
@@ -17,9 +17,14 @@ class csvJS{
         this.TAB = '\t';
         this.NL = '\n';
 
+        this.JSON_OPTION_REGULAR = 1;
+        this.JSON_OPTION_TRANSPOSE = 2;
+
         this.setSplice = (typeof splice!=='undefined' ? splice : this.COMMA);
         this.setEOF = (typeof EOF!=='undefined' ? EOF : this.NL);
 
+        this.results;
+        return this;
     }
     /**
      * Converts CSV file to an Object
@@ -35,7 +40,7 @@ class csvJS{
         xml.onreadystatechange = function(){
             if(this.readyState===4&&this.status==200){
                 let getCSV = this.responseText;
-                getCSV = getCSV.replaceAll('\r','');
+                getCSV = getCSV.replaceAll('\r','').trim();
                 const newLine = getCSV.split(eof);
                 for(let i=0;i<newLine.length;i++){
                     if(i==0){
@@ -46,6 +51,7 @@ class csvJS{
                         if((!Array.isArray(ignoreLines)&&i!=ignoreLines)||(Array.isArray(ignoreLines)&&!ignoreLines.includes(i))){
                             const obj = new Object();
                             for(let k=0;k<keys.length;k++){
+                                newLine[i] = newLine[i].replace(new RegExp(splice+'$'),'');
                                 const values = newLine[i].split(splice);
                                 obj[keys[k]] = values[k].trim();
                             }
@@ -57,7 +63,8 @@ class csvJS{
         }
         xml.open('GET',file,false);
         xml.send();
-        return results;
+        this.results = results;
+        return this;
     }
     /**
      * Converts CSV from string to object
@@ -68,7 +75,7 @@ class csvJS{
     fromString(str, ignoreLines=0){
         let getCSV = str;
         const splice = this.setSplice, eof = this.setEOF, results=[], keys=[];
-        getCSV = getCSV.replaceAll('\r','');
+        getCSV = getCSV.replaceAll('\r','').trim();
         const newLine = getCSV.split(eof);
         for(let i=0;i<newLine.length;i++){
             if(i==0){
@@ -79,6 +86,7 @@ class csvJS{
                 if((!Array.isArray(ignoreLines)&&i!=ignoreLines)||(Array.isArray(ignoreLines)&&!ignoreLines.includes(i))){
                     const obj = new Object();
                     for(let k=0;k<keys.length;k++){
+                        newLine[i] = newLine[i].replace(new RegExp(splice+'$'),'');
                         const values = newLine[i].split(splice);
                         obj[keys[k]] = values[k].trim();
                     }
@@ -86,7 +94,8 @@ class csvJS{
                 }
             }
         }
-        return results;
+        this.results = results;
+        return this;
     }
     /**
      * Creates a table off the object
@@ -94,6 +103,7 @@ class csvJS{
      * @param {Element} elem Element to target the CSV
      */
     toTable(obj, elem){
+        obj = obj['results'];
         const tableElem = document.createElement('table'),
         tableHead = document.createElement('thead'),
         tableBody = document.createElement('tbody'),
@@ -125,10 +135,12 @@ class csvJS{
     }
     /**
      * Converts Object to CSV
-     * @param {Object} obj Object to convert
+     * @param {csvJS} obj Object to convert
      * @returns {String} CSV String
      */
     toCSV(obj){
+        if(!(obj instanceof csvJS)) throw new TypeError("Must be a csvJS object");
+        obj = obj['results'];
         let str = '',
         keys = Object.keys(obj[0]);
         str+=keys.join(this.setSplice)+this.setEOF;
@@ -139,5 +151,39 @@ class csvJS{
         str = str.replace(new RegExp(this.setEOF+'$'),'');
 
         return str;
+    }
+    #transpose(obj){
+        let keys={};
+        for(let i=0;i<1;i++){
+            Object.keys(obj[i]).forEach((k)=>{
+                keys[k] = []
+            });
+        }
+        for(let i=0;i<obj.length;i++){
+            Object.keys(obj[i]).forEach((k)=>{
+                keys[k].push(obj[i][k]);
+            });
+        }
+        return keys;
+    }
+    /**
+     * Converts CSV Object to JSON
+     * @param {Object} obj CSV-rendered Object
+     * @param {Number} opt Options
+     * @returns {String} JSON object
+     */
+    toJSON(obj,opt){
+        if(!(obj instanceof csvJS)) throw new TypeError("Must be a csvJS object");
+        obj = obj['results'];
+        let out;
+        switch(opt){
+            case this.JSON_OPTION_REGULAR:
+                out = JSON.stringify(obj);
+            break;
+            case this.JSON_OPTION_TRANSPOSE:
+                out = this.#transpose(obj);
+            break;
+        }
+        return out;
     }
 }
