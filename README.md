@@ -4,7 +4,7 @@ CSVJS Allows CSV, Comma-Separated values, in JS.
 ### Starting up
 Use this script to get the script
 ```html
-<script src="https://cdn.jsdelivr.net/gh/XHiddenProjects/CSVJS@1.0.1/csv.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/XHiddenProjects/CSVJS@1.0.2/csv.min.js"></script>
 ```
 
 ### Creating object
@@ -64,4 +64,16 @@ To convert objects to CSV, use the **toCSV()** method
   * @returns {String} CSV String
   */
     csv.toCSV(myCSV);
+```
+
+### converting to JSON
+To convert objects to JSON format, use **toJSON()** method
+```js
+ /**
+     * Converts CSV Object to JSON
+     * @param {Object} obj CSV-rendered Object
+     * @param {Number} opt Options. JSON_OPTION_REGULAR | JSON_OPTION_TRANSPOSE
+     * @returns {String} JSON object
+     */
+    csv.toJSON(myCSV,opt)
 ```
