@@ -1,6 +1,6 @@
 /**
  * @author XHiddenProjects
- * @version 1.0.1
+ * @version 1.0.2
  * @description CSVJS allows comma-separated values in JS
  */
 class csvJS{
