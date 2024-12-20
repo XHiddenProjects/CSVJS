@@ -1,6 +1,6 @@
 /**
  * @author XHiddenProjects
- * @version 1.0.2
+ * @version 1.0.3
  * @description CSVJS allows comma-separated values in JS
  */
 class csvJS{
@@ -99,11 +99,10 @@ class csvJS{
     }
     /**
      * Creates a table off the object
-     * @param {Object} obj Object of the CSV
      * @param {Element} elem Element to target the CSV
      */
-    toTable(obj, elem){
-        obj = obj['results'];
+    toTable(elem){
+        obj = this.results;
         const tableElem = document.createElement('table'),
         tableHead = document.createElement('thead'),
         tableBody = document.createElement('tbody'),
@@ -135,12 +134,10 @@ class csvJS{
     }
     /**
      * Converts Object to CSV
-     * @param {csvJS} obj Object to convert
      * @returns {String} CSV String
      */
-    toCSV(obj){
-        if(!(obj instanceof csvJS)) throw new TypeError("Must be a csvJS object");
-        obj = obj['results'];
+    toCSV(){
+        obj = this.results;
         let str = '',
         keys = Object.keys(obj[0]);
         str+=keys.join(this.setSplice)+this.setEOF;
@@ -168,13 +165,11 @@ class csvJS{
     }
     /**
      * Converts CSV Object to JSON
-     * @param {Object} obj CSV-rendered Object
      * @param {Number} opt Options
      * @returns {String} JSON object
      */
-    toJSON(obj,opt){
-        if(!(obj instanceof csvJS)) throw new TypeError("Must be a csvJS object");
-        obj = obj['results'];
+    toJSON(opt){
+        const obj = this.results;
         let out;
         switch(opt){
             case this.JSON_OPTION_REGULAR:
@@ -182,6 +177,9 @@ class csvJS{
             break;
             case this.JSON_OPTION_TRANSPOSE:
                 out = this.#transpose(obj);
+            break;
+            default:
+              out = JSON.stringify(obj);
             break;
         }
         return out;
