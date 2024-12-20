@@ -54,6 +54,17 @@ To load up the table from an object, use the **toTable** method
 csv.toTable({element});
 ```
 
+### Converting to SQL
+To convert objects to SQL _insert_ CMD line:
+```js
+/**
+  * Converts CSV Object to SQL
+  * @returns {String} SQL String
+  */
+csv.toSQL();
+```
+
+
 ### Coverting Objects to CSV
 To convert objects to CSV, use the **toCSV()** method
 ```js
@@ -61,16 +72,16 @@ To convert objects to CSV, use the **toCSV()** method
   * Converts Object to CSV
   * @returns {String} CSV String
   */
-    csv.toCSV();
+csv.toCSV();
 ```
 
 ### converting to JSON
 To convert objects to JSON format, use **toJSON()** method
 ```js
- /**
-     * Converts CSV Object to JSON
-     * @param {Number} opt Options. JSON_OPTION_REGULAR | JSON_OPTION_TRANSPOSE
-     * @returns {String} JSON object
-     */
-    csv.toJSON(opt)
+/**
+  * Converts CSV Object to JSON
+  * @param {Number} opt Options. JSON_OPTION_REGULAR | JSON_OPTION_TRANSPOSE
+  * @returns {String} JSON object
+  */
+csv.toJSON(opt)
 ```
