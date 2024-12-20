@@ -1,6 +1,6 @@
 /**
  * @author XHiddenProjects
- * @version 1.0.3
+ * @version 1.0.2
  * @description CSVJS allows comma-separated values in JS
  */
 class csvJS{
@@ -176,7 +176,7 @@ class csvJS{
             str+=`(${values.join(',')}), `;
         }
         str = str.replace(/, ?$/,'');
-        console.log(str);
+        return str;
     }
     /**
      * Converts CSV Object to JSON
