@@ -1,4 +1,9 @@
-{
+/**
+ * @author XHiddenProjects
+ * @version 1.0.2
+ * @description CSVJS allows comma-separated values in JS
+ */
+class csvJS{
     /**
      * Creates a CSV object to configure
      * @param {String} splice [Optional] - Character to splice in row
@@ -159,6 +164,21 @@
         return keys;
     }
     /**
+     * Converts CSV Object to SQL
+     * @returns {String} SQL String
+     */
+    toSQL(){
+        const obj = this.results,
+        keys = Object.keys(obj[0]);
+        let str = `INSERT INTO (${keys.join(',')}) VALUES `;
+        for(let i=0;i<obj.length;i++){
+            const values = Object.values(obj[i]);
+            str+=`(${values.join(',')}), `;
+        }
+        str = str.replace(/, ?$/,'');
+        console.log(str);
+    }
+    /**
      * Converts CSV Object to JSON
      * @param {Number} opt Options
      * @returns {String} JSON object
@@ -174,7 +194,7 @@
                 out = this.#transpose(obj);
             break;
             default:
-              out = JSON.stringify(obj);
+                out = JSON.stringify(obj);
             break;
         }
         return out;
