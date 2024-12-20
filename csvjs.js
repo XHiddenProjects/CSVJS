@@ -1,9 +1,4 @@
-/**
- * @author XHiddenProjects
- * @version 1.0.3
- * @description CSVJS allows comma-separated values in JS
- */
-class csvJS{
+{
     /**
      * Creates a CSV object to configure
      * @param {String} splice [Optional] - Character to splice in row
@@ -137,7 +132,7 @@ class csvJS{
      * @returns {String} CSV String
      */
     toCSV(){
-        obj = this.results;
+        const obj = this.results;
         let str = '',
         keys = Object.keys(obj[0]);
         str+=keys.join(this.setSplice)+this.setEOF;
