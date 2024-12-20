@@ -49,10 +49,9 @@ To load up the table from an object, use the **toTable** method
 ```js
 /**
   * Creates a table off the object
-  * @param {Object} obj Object of the CSV
   * @param {Element} elem Element to target the CSV
   */
-csv.toTable(myCSV, {element});
+csv.toTable({element});
 ```
 
 ### Coverting Objects to CSV
@@ -60,10 +59,9 @@ To convert objects to CSV, use the **toCSV()** method
 ```js
 /**
   * Converts Object to CSV
-  * @param {Object} obj Object to convert
   * @returns {String} CSV String
   */
-    csv.toCSV(myCSV);
+    csv.toCSV();
 ```
 
 ### converting to JSON
@@ -71,9 +69,8 @@ To convert objects to JSON format, use **toJSON()** method
 ```js
  /**
      * Converts CSV Object to JSON
-     * @param {Object} obj CSV-rendered Object
      * @param {Number} opt Options. JSON_OPTION_REGULAR | JSON_OPTION_TRANSPOSE
      * @returns {String} JSON object
      */
-    csv.toJSON(myCSV,opt)
+    csv.toJSON(opt)
 ```
